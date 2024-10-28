@@ -71,17 +71,18 @@ Kompilasi Bank.java dan BankClient.java, lalu jalankan klien dengan cara berikut
 
 ```bash
 javac Bank.java BankClient.java java BankClient
-Saat klien dijalankan, GUI akan meminta login. Masukkan kredensial yang sesuai (admin atau pengguna biasa) untuk melanjutkan.
 ```
+Saat klien dijalankan, GUI akan meminta login. Masukkan kredensial yang sesuai (admin atau pengguna biasa) untuk melanjutkan.
+
 
 ## Catatan Penting
    - Pastikan server berjalan sebelum menjalankan klien, karena klien perlu terhubung ke server      RMI.
    - Koneksi menggunakan localhost, yang berarti server dan klien berada pada mesin yang sama        kecuali disesuaikan untuk jaringan lain.
 
 ## Teknologi yang Digunakan
-   -Java RMI: Untuk komunikasi jarak jauh antara server dan klien.
-   -Java Swing: Untuk antarmuka pengguna berbasis GUI.
-   -Java Collections (HashMap): Untuk menyimpan dan mengelola saldo akun pengguna.
+   - Java RMI: Untuk komunikasi jarak jauh antara server dan klien.
+   - Java Swing: Untuk antarmuka pengguna berbasis GUI.
+   - Java Collections (HashMap): Untuk menyimpan dan mengelola saldo akun pengguna.
 
 ## Potensi Pengembangan
    - Keamanan: Implementasi otentikasi yang lebih kuat untuk akses admin dan pengguna.
