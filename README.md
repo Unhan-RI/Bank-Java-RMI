@@ -51,3 +51,22 @@ Kode server yang:
    ```bash
    javac BankImpl.java BankServer.java
    java BankServer
+2. **Menjalankan Klien**
+   - Kompilasi Bank.java dan BankClient.java.
+   - Jalankan BankClient untuk membuka GUI klien.
+   ```bash
+   javac Bank.java BankClient.java
+   java BankClient
+
+Saat dijalankan, aplikasi akan meminta login. Masukkan kredensial yang benar untuk masuk sebagai admin atau pengguna.
+   
+**Catatan**
+   - Pastikan server berjalan sebelum klien mencoba untuk terhubung.
+   - Koneksi menggunakan localhost, yang berarti server dan klien harus berada pada mesin yang       sama kecuali disesuaikan untuk jaringan lain.
+
+**Teknologi yang Digunakan**
+   - Java RMI untuk komunikasi jarak jauh.
+   - Java Swing untuk antarmuka pengguna GUI.
+   - Penulis
+   - Proyek ini dikembangkan sebagai contoh aplikasi perbankan sederhana dengan Java RMI.
+   
