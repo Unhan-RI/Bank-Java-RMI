@@ -1,6 +1,6 @@
 # Java RMI Bank Application
 
-Aplikasi Bank berbasis Java yang menggunakan Java RMI untuk memungkinkan interaksi jarak jauh antara klien dan server perbankan. Aplikasi ini menyediakan layanan dasar seperti cek saldo, transfer dana, dan fitur-fitur khusus untuk admin.
+Aplikasi Bank berbasis Java yang menggunakan Java RMI untuk memungkinkan interaksi jarak jauh antara klien dan server perbankan. Aplikasi ini menyediakan layanan dasar perbankan seperti cek saldo, transfer dana, dan fitur khusus untuk admin.
 
 ## Fitur
 
@@ -13,60 +13,78 @@ Aplikasi Bank berbasis Java yang menggunakan Java RMI untuk memungkinkan interak
 
 ### 1. `Bank.java`
 
-Antarmuka RMI yang mendefinisikan metode yang dapat digunakan oleh klien:
-- `checkBalance(String accountNumber)`: Mengembalikan saldo dari nomor rekening yang diberikan.
-- `transferFunds(String fromAccount, String toAccount, double amount)`: Melakukan transfer dana antar rekening.
-- `viewAllBalances()`: Mengembalikan semua saldo rekening (khusus admin).
-- `viewTransactions()`: Mengembalikan riwayat transaksi (khusus admin).
+Antarmuka RMI yang mendefinisikan metode yang dapat diakses oleh klien:
+
+- `double checkBalance(String accountNumber)`: Mengembalikan saldo dari nomor rekening yang diberikan.
+- `String transferFunds(String fromAccount, String toAccount, double amount)`: Melakukan transfer dana antar rekening dan memberikan hasil transfer.
+- `Map<String, Double> viewAllBalances()`: Mengembalikan semua saldo rekening (khusus admin).
+- `String viewTransactions()`: Mengembalikan riwayat transaksi yang terjadi (khusus admin).
 
 ### 2. `BankClient.java`
 
-Aplikasi klien berbasis GUI (Swing) yang menyediakan dua mode akses:
-- **Mode Admin**: Memiliki akses untuk melihat semua saldo dan riwayat transaksi.
-- **Mode Pengguna**: Memiliki akses untuk melihat saldo dan melakukan transfer dana.
+Aplikasi klien berbasis GUI menggunakan Java Swing. Terdapat dua mode akses:
 
-#### Cara Menggunakan:
-- Admin menggunakan kredensial: **Username**: `admin`, **Password**: `123456789`
-- Pengguna dengan nomor akun: **Username**: `ACCxxx` (contoh: `ACC123`), **Password**: `informatika`
+- **Mode Admin**: Akses untuk melihat semua saldo dan riwayat transaksi.
+- **Mode Pengguna**: Akses untuk cek saldo dan melakukan transfer dana.
+
+#### Kredensial Pengguna:
+- **Admin**: 
+  - Username: `admin`
+  - Password: `123456789`
+- **Pengguna (Contoh)**:
+  - Username: `ACCxxx` (misal: `ACC123`)
+  - Password: `informatika`
+
+Fitur dalam GUI klien meliputi:
+- **Cek Saldo**: Untuk melihat saldo rekening.
+- **Transfer Dana**: Untuk melakukan transfer dana antar rekening.
+- **Lihat Semua Saldo dan Riwayat Transaksi (khusus Admin)**.
 
 ### 3. `BankImpl.java`
 
-Implementasi dari antarmuka `Bank`, yang mengelola data akun dan menyimpan catatan transaksi.
-- Menyimpan data saldo untuk akun yang terdaftar.
-- Menyediakan fungsi untuk cek saldo, transfer dana, melihat semua saldo (admin), dan melihat riwayat transaksi (admin).
+Kelas implementasi dari antarmuka `Bank`, yang mengelola data akun dan menyimpan catatan transaksi:
+
+- Menyimpan data saldo untuk setiap akun yang terdaftar.
+- Menyediakan fungsi untuk cek saldo, transfer dana antar akun, melihat semua saldo (khusus admin), dan melihat riwayat transaksi (khusus admin).
 
 ### 4. `BankServer.java`
 
-Kode server yang:
-- Membuat instance dari `BankImpl`.
+Kode server yang mengatur proses server untuk layanan perbankan RMI:
+
+- Membuat instance `BankImpl`.
 - Mendaftarkan layanan `Bank` di registry RMI pada port 1099.
-- Menjalankan server untuk memungkinkan koneksi dari klien.
+- Menyiapkan server untuk memungkinkan klien terhubung ke layanan perbankan dari jarak jauh.
 
-## Cara Menjalankan
+## Cara Menjalankan Aplikasi
 
-1. **Menjalankan Server**
-   - Kompilasi `BankImpl.java` dan `BankServer.java`.
-   - Jalankan `BankServer` untuk memulai layanan RMI.
+### 1. Menjalankan Server
 
-   ```bash
-   javac BankImpl.java BankServer.java
-   java BankServer
-2. **Menjalankan Klien**
-   - Kompilasi Bank.java dan BankClient.java.
-   - Jalankan BankClient untuk membuka GUI klien.
-   ```bash
-   javac Bank.java BankClient.java
-   java BankClient
+Kompilasi `BankImpl.java` dan `BankServer.java` dan jalankan server sebelum klien:
+```bash
+javac BankImpl.java BankServer.java java BankServer
+```
 
-Saat dijalankan, aplikasi akan meminta login. Masukkan kredensial yang benar untuk masuk sebagai admin atau pengguna.
-   
-**Catatan**
-   - Pastikan server berjalan sebelum klien mencoba untuk terhubung.
-   - Koneksi menggunakan localhost, yang berarti server dan klien harus berada pada mesin yang       sama kecuali disesuaikan untuk jaringan lain.
+Server ini berjalan di localhost pada port default RMI (1099). Setelah berhasil, server akan siap menerima koneksi dari klien.
 
-**Teknologi yang Digunakan**
-   - Java RMI untuk komunikasi jarak jauh.
-   - Java Swing untuk antarmuka pengguna GUI.
-   - Penulis
-   - Proyek ini dikembangkan sebagai contoh aplikasi perbankan sederhana dengan Java RMI.
-   
+### 2. Menjalankan Klien
+Kompilasi Bank.java dan BankClient.java, lalu jalankan klien dengan cara berikut:
+
+```bash
+javac Bank.java BankClient.java java BankClient
+Saat klien dijalankan, GUI akan meminta login. Masukkan kredensial yang sesuai (admin atau pengguna biasa) untuk melanjutkan.
+```
+
+## Catatan Penting
+   - Pastikan server berjalan sebelum menjalankan klien, karena klien perlu terhubung ke server      RMI.
+   - Koneksi menggunakan localhost, yang berarti server dan klien berada pada mesin yang sama        kecuali disesuaikan untuk jaringan lain.
+
+## Teknologi yang Digunakan
+   -Java RMI: Untuk komunikasi jarak jauh antara server dan klien.
+   -Java Swing: Untuk antarmuka pengguna berbasis GUI.
+   -Java Collections (HashMap): Untuk menyimpan dan mengelola saldo akun pengguna.
+
+## Potensi Pengembangan
+   - Keamanan: Implementasi otentikasi yang lebih kuat untuk akses admin dan pengguna.
+   - Pengembangan Fitur: Menambah fitur lain seperti penarikan tunai, penyetoran, dan pembuatan      akun baru.
+   - Deployment pada Jaringan Luas: Menjalankan server pada jaringan eksternal agar dapat            diakses    dari lokasi berbeda.
+
